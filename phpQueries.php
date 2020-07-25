@@ -41,7 +41,11 @@ $searchInput = "food name"
 
 <?php
 //connect to sql server
+$mysqli = new mysqli("DietaryRestrictions","Ingredients","MealType","Pantry","Users","Recipe","MyRecipe");
 
+if($mysqli->connect_erro){
+    echo "Failes to connect to MySQL: (" . $mysqli->connect_erro . ") " $mysqli->connect_error;
+}
 //inserting user
 if (!$mysqli -> query("INSERT INTO Users(UserId, UserName) VALUES('$currentUser['userID']','$currentUser['username']')"))
     echo "UserID is taken, please pick another one";
