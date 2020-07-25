@@ -1,0 +1,29 @@
+import pandas as pd
+
+df = pd.read_csv('Ingredients.csv')
+# If you know the name of the column skip this
+first_column = df.columns[0]
+# Delete first
+df = df.drop([first_column], axis=1)
+df.to_csv('Ingredients.csv', index=False)
+
+df = pd.read_csv('MealTypes.csv')
+# If you know the name of the column skip this
+first_column = df.columns[0]
+# Delete first
+df = df.drop([first_column], axis=1)
+df.to_csv('MealTypes.csv', index=False)
+
+df = pd.read_csv('Recipes.csv')
+# If you know the name of the column skip this
+first_column = df.columns[0]
+# Delete first
+df = df.drop([first_column], axis=1)
+df.to_csv('Recipes.csv', index=False)
+
+df = pd.read_csv('DietaryRestrictions.csv')
+# If you know the name of the column skip this
+first_column = df.columns[0]
+# Delete first
+df = df.drop([first_column], axis=1)
+df.to_csv('DietaryRestrictions.csv', index=False)
