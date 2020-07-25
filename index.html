@@ -1,4 +1,4 @@
-//UI framework
+<!-- //UI framework
 
 /* when you first get to the website there should be a box that allows a user to type in UserID and Name
    when a user hits "enter" button whatever is in UserID should append to UserIDs array and whatever is in Name should append to UserNames arrays */
@@ -41,4 +41,25 @@
 // favorite/unfavorite recipes to my recipes
 // searching recipe table based on filters
 // reccomended recipes (next week)
-// alerts on food that is going to expire (next week)
+// alerts on food that is going to expire (next week) -->
+
+
+<!-- create a table so a user can create a userID and name -->
+<html>
+<body>
+
+<h1>PantryTM</h1>
+
+<form action="/userSetup.php" method="get">
+  <label for="userID">UserID:</label>
+  <input type="text" id="userID" name="userID"><br><br>
+  <label for="UserName">Last name:</label>
+  <input type="text" id="UserName" name="UserName"><br><br>
+  <input type="submit" value="Submit">
+</form>
+
+<p>Click the "Submit" button and the form-data will be sent to a page on the
+server called "userSetup.php".</p>
+
+</body>
+</html>
