@@ -7,7 +7,7 @@
   - text box for item Name, quantity, and a drop down menu for the quanitity type
   - we should add constraints as well, so with quanitity only allow user to type up 2 decimal places or truncate/add decimals as needed
   - when a user hits "add" button those items should be added to pantryItems dict (where UserId and item are the keys)
-    this will allow for systematic insert in the querues below */
+    this will allow for systematic insert in the queries below */
 
 /* when "finish" is hit, the page will be replaced with the pantry (list of all items and their corresponding attributes)
   (will be done by connecting a sql search * query result to the UI structure)
@@ -35,3 +35,10 @@
 // connect database to mySQL
 
 //below will be the queries that use the arrays from above
+
+// add, delete user accounts
+// add, delete, update pantry
+// favorite/unfavorite recipes to my recipes
+// searching recipe table based on filters
+// reccomended recipes (next week)
+// alerts on food that is going to expire (next week)
