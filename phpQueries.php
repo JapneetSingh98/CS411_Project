@@ -73,4 +73,5 @@ $sql = "SELECT Name, ID FROM myRecipe WHERE Name LIKE "%'$searchInput'%"";
 //filtering results 
 
 //close sql server
+$mysqli->close();
 ?>
