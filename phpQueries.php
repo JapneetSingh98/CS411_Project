@@ -31,7 +31,7 @@ $pantry = array(
 <?php
 //inserting into pantry
 for ($x = 0; $x <=sizeof(pantry) ; $x++) {
-        $sql = "INSERT INTO Pantry(UserID, Name, Quantity, Type) VALUES ('$currentUser['userID],'$pantry[x][name]', '$pantry[x][quantity]', '$pantry[x][type]')"
+        $sql = "INSERT INTO Pantry(UserID, Name, Quantity, Type) VALUES ('$currentUser['userID']','$pantry[$x]['name']', '$pantry[$x]['quantity']', '$pantry[$x]['type']')"
     }
 }
 //deleting from pantry
