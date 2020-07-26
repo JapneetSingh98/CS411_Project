@@ -1,26 +1,7 @@
 <html>
-<head>
-    <link rel="stylesheet" type="text/css" href="navbar.css">
-</head>
 <body>
-    <div class="topnav">
-        <a class="home" href="#home">Home</a>
-         <a href="/pantryInserts.php">Insert to Pantry</a>
-           <a href="/searchRecipes.php">Search Recipes</a>
-           <a href="/myRecipes.php">My Recipes</a>
-   </div>
-        <form action="user.php" method="get">
-             <label for="userID">UserID:</label>
-             <input type="text" id="userID" name="userID"><br><br>
-             <label for="UserName">Username:</label>
-             <input type="text" id="UserName" name="UserName"><br><br>
-             <input type="Submit" value="Log in"><br><br>
-        </form>
-
-
 </body>
 </html>
-
 <?php
     $userID = $_GET["userID"];
     $userName = $_GET["UserName"];
@@ -64,5 +45,4 @@
 
     header('Location: /index.html');
 ?>
-
 

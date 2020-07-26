@@ -1,34 +1,24 @@
-<!-- //UI framework -->
-
-
-<!-- create text input so a user can sign in with a userID and name -->
+<!DOCTYPE html>
 <html>
+<head>
+    <link rel="stylesheet" type="text/css" href="navbar.css">
+</head>
 <body>
-
-<h1>PantryTM</h1>
-
-<form action="index1.php" method="get">
-  <label for="userID">UserID:</label>
-  <input type="text" id="userID" name="userID"><br><br>
-  <label for="UserName">Username:</label>
-  <input type="text" id="UserName" name="UserName"><br><br>
-  <input type="Submit" value="Log in"><br><br>
-</form>
-
-
-
-<!-- <form method="get">
-  <label for="Item">Item in Pantry:</label>
-  <input type="text" id="Item" name="Item"><br><br>
-  <label for="qty">Qty:</label>
-  <input type="text" id="qty" name="qty"><br><br>
-  <label for="Type">Type of Measurement:</label>
-  <input type="text" id="Type" name="Type"><br><br>
-  <label for="Date">Expiration Date:</label>
-  <input type="text" id="Date" name="Date"><br><br>
-  <input type="submit" value="Submit"><br><br>
-</form> -->
+    <div class="topnav">
+        <a class="home" href="#home">Home</a>
+         <a href="/pantryInserts.php">Insert to Pantry</a>
+           <a href="/searchRecipes.php">Search Recipes</a>
+           <a href="/myRecipes.php">My Recipes</a>
+   </div>
+        <form action="user.php" method="get">
+             <label for="userID">UserID:</label>
+             <input type="text" id="userID" name="userID"><br><br>
+             <label for="UserName">Username:</label>
+             <input type="text" id="UserName" name="UserName"><br><br>
+             <input type="Submit" value="Log in"><br><br>
+        </form>
 
 
 </body>
 </html>
+    
