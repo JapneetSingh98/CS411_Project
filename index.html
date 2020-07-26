@@ -5,17 +5,16 @@
 </head>
 <body>
     <div class="topnav">
-        <a class="home" href="#home">Home</a>
-         <a href="/pantryInserts.php">Insert to Pantry</a>
-           <a href="/searchRecipes.php">Search Recipes</a>
-           <a href="/myRecipes.php">My Recipes</a>
+        <a class="home" href="/index.html">Home</a>
+        <a href="/searchRecipes.php">Search Recipes</a>
    </div>
-        <form action="user.php" method="get">
+        <form action="/user.php" method="get">
              <label for="userID">UserID:</label>
              <input type="text" id="userID" name="userID"><br><br>
-             <label for="UserName">Username:</label>
-             <input type="text" id="UserName" name="UserName"><br><br>
-             <input type="Submit" value="Log in"><br><br>
+             <label for="text">Password:</label>
+             <input type="password" id="password" name="password"><br><br>
+             <input type="Submit" name="login" value="Log in"><br><br>
+             <input type ="Submit" name="signUp" value="Sign Up"><br><br>
         </form>
 
 
