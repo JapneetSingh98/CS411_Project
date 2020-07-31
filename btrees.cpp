@@ -7,7 +7,7 @@
 using namespace std;
 struct B+TreeNode
 {
-    int *data;
+    int *data;//Edit this
     B+TreeNode **child_ptr;
     bool leaf;
     int n;
@@ -16,7 +16,7 @@ B+TreeNode * init()
 {
     int i;
     np = new B+TreeNode;
-    np->data = new int[5];
+    np->data = new int[5];//Will this be an int?
     np->child_ptr = new B+TreeNode *[6];
     np->leaf = true;
     np->n = 0;
@@ -47,7 +47,7 @@ void traverse(B+TreeNode *p)
 void sort(int *p, int n)
 {
     int i, j, temp;
-    for (i = 0; i < n; i++)
+    for (i = 0; i < n; i++)// Maybe?
     {
         for (j = i; j <= n; j++)
         {
@@ -127,7 +127,7 @@ void insert(int a)
             x = root;
             for (i = 0; i < (x->n); i++)
             {
-                if ((a > x->data[i]) && (a < x->data[i + 1]))
+                if ((a > x->data[i]) && (a < x->data[i + 1])) //The data part?
                 {
                     i++;
                     break;
@@ -149,7 +149,7 @@ void insert(int a)
             {
             for (i = 0; i < (x->n); i++)
             {
-                if ((a > x->data[i]) && (a < x->data[i + 1]))
+                if ((a > x->data[i]) && (a < x->data[i + 1])) //Data change?
                 {
                     i++;
                     break;
@@ -166,7 +166,7 @@ void insert(int a)
                 if ((x->child_ptr[i])->n == 5)
                 {
                     temp = split_child(x, i);
-                    x->data[x->n] = temp;
+                    x->data[x->n] = temp;//Data change?
                     x->n++;
                     continue;
                 }
