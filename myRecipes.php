@@ -1,18 +1,31 @@
+<?php
+    include_once("connector.php");
+?>
 <html>
-<head>
-    <link rel="stylesheet" type="text/css" href="navbar.css">
-</head>
 <body>
-    <div class="topnav">
-        <a class="home" href="/index.html">Home</a>
-        <a href="/pantryUpdates.php"> Update Pantry</a>
-        <a href="/searchRecipes.php">Search Recipes</a>
-        <a href="/myRecipes.php">My Recipes</a>
-   </div>
-    <form action="" method="get">
-        <label for="Search">Search Recipes:</label>
-        <input type="text" id=\"Search\" name="Search"><br><br>
-        <input type="Submit" value="Add"><br><br>
-    </form>
- </body>
- </html>
+</body>
+</html>
+ <?php
+    $sql = "SELECT ID FROM currentUser";
+    $res = mysqli_query($conn, $sql);
+    while($row = mysqli_fetch_array($res)) $userID = $row['ID'];
+    
+    $sql = "SELECT RecipeID, Name FROM MyRecipe WHERE UserID = '$userID'";
+    $res = mysqli_query($conn, $sql);
+
+    echo "<table border='1'>
+    <tr>
+    <th>ID</th>
+    <th>Name</th>
+    </tr>";
+    echo "<form name=\"RecipeDetails\" action=\"recipeDetails.php\" method=\"post\">";
+    while($row = mysqli_fetch_array($res))
+    {
+        $id = $row['RecipeID'];
+        echo "<tr>";
+        echo "<td><input type='Submit' name='Details' value='$id'></td>";
+        echo "<td>" . $row['Name'] . "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+ ?>

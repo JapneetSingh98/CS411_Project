@@ -1,25 +1,18 @@
+<?php
+    session_start();
+    include("connector.php");
+?>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="navbar.css">
-</head>
-<body>
-    <div class="topnav">
-        <a class="home" href="/index.html">Home</a>
-        <a href="/pantryUpdates.php"> Update Pantry</a>
-        <a href="/searchRecipes.php">Search Recipes</a>
-        <a href="/myRecipes.php">My Recipes</a>
-   </div>
    <h1>
        Here you can add items to your pantry, delete items from pantry, or update already existing items.<br>
    </h1>
    <p> 
-        To add an item, fill out all of the fileds below and click on the Add button.<br>
-        To update an item, fill out your userID and the name of the item you want to update, then fill in the corresponding fields you are updating.<br>
-        To delete an item, fill out your userID and name of the item you want to delete. <br>
+        To add an item, fill out all of the fields below and click on the Add button.<br>
+        To update an item, fill out the name of the item you want to update, then fill in the corresponding fields you are updating.<br>
+        To delete an item, fill out the name of the item you want to delete. <br>
    </p>
-    <form action="" method="get">
-      <label for="userID">userID:</label>
-      <input type="text" id=\"userID\" name="userID"><br><br>
+    <form action="" method="post">
       <label for="item">Item Name:</label>
       <input type="text" id="item" name="item"><br><br>
       <label for="Quantity">Qty:</label>
@@ -36,31 +29,25 @@
 </body>
 <?php
     session_start();
-   
-    $id = $_GET["userID"];
-    $item = $_GET["item"];
-    $qty = $_GET["Quantity"];
-    $type = $_GET["Type"];
-    $date = $_GET["Expiration"];
-
-    //connect to sql server
-    $servername = "localhost";
-    $username = "pantrycs411_user";
-    $pass = "P@ntry!!";
-    $dbname = "pantrycs411_ver1";
-    $conn = mysqli_connect($servername, $username, $pass, $dbname);
-    if (!$conn) {
-        echo "<h1>we not connected</h1>";
-    }
+    $item = $_POST["item"];
+    $qty = $_POST["Quantity"];
+    $type = $_POST["Type"];
+    $date = $_POST["Expiration"];
     
-    if (isset($_GET['Add'])){
-        $sql = "INSERT INTO `Pantry`(`UserID`, `Name`, `Quantity`, `Type`, `ExpirationDate`) VALUES (\"$id\",\"$item\",$qty,\"$type\",\"$date\")";
+    $stmt = $conn->prepare("SELECT ID FROM `currentUser` LIMIT 1");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $userArr = $result->fetch_assoc();
+    $userID = array_pop(array_reverse($userArr));
+    
+    if (isset($_POST['Add'])){
+        $sql = "INSERT INTO `Pantry`(`UserID`, `Name`, `Quantity`, `Type`, `ExpirationDate`) VALUES (\"$userID\",\"$item\",\"$qty\",\"$type\",\"$date\")";
         $res = mysqli_query($conn, $sql);
-    } else if (isset($_GET['Delete'])){
-        $sql = "DELETE FROM Pantry WHERE UserID = '$id' AND Name = '$item'";
+    } else if (isset($_POST['Delete'])){
+        $sql = "DELETE FROM Pantry WHERE UserID = '$userID' AND Name = '$item'";
         $res = mysqli_query($conn, $sql);
-    } else if (isset($_GET['Update'])){
-        $sql = "UPDATE Pantry SET Quantity = '$qty', Type = '$type', ExpirationDate = '$date' WHERE UserID = '$id' AND Name = '$item'";
+    } else if (isset($_POST['Update'])){
+        $sql = "UPDATE Pantry SET Quantity = '$qty', Type = '$type', ExpirationDate = '$date' WHERE UserID = '$userID' AND Name = '$item'";
         $res = mysqli_query($conn, $sql);
     }
 
