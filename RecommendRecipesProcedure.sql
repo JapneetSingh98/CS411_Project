@@ -18,16 +18,17 @@ BEGIN
 		IF  x > recipeCnt THEN
 			LEAVE  loop_label;
 		END IF;
-        SELECT ID, Name, count(*) INTO recipeID, recipeName, numSimilar
+        SELECT ID, count(*) INTO recipeID, numSimilar
         	FROM Ingredients
             WHERE Name IN (SELECT Name FROM Pantry WHERE UserID = userID) AND ID = x;
-        IF recipeID IS NOT NULL
-           THEN INSERT IGNORE INTO RecommendedRecipesTable VALUES (userID, recipeID, recipeName, numSimilar);
+        IF recipeID IS NOT NULL THEN
+        	SELECT Name INTO RecipeName FROM Recipe WHERE ID = recipeID;
+           	INSERT IGNORE INTO RecommendedRecipesTable VALUES (userID, recipeID, recipeName, numSimilar);
         END IF;
         SET  x = x + 1;
 	END LOOP;
 
-    SELECT RecipeID, RecipeName FROM RecommendedRecipesTable WHERE UserID = userID
+    SELECT * FROM RecommendedRecipesTable WHERE UserID = userID
     ORDER BY NumSimilar DESC
     LIMIT 3;
 END$$
