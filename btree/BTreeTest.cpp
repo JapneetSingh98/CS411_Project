@@ -52,7 +52,8 @@ vector<Recipe> retrieve(vector<Recipe> &result) {
    vector<Recipe> result;
    retrieve(result);
    for (int i=0; i<result.size(); i++){
-     cout << "search=" << argv[1] << "&id=" << result[i].id << "&name=" << result[i].name << "*";
+     if (i==result.size()-1) cout << "search=" << argv[1] << "&id=" << result[i].id << "&name=" << result[i].name;
+     else cout << "search=" << argv[1] << "&id=" << result[i].id << "&name=" << result[i].name << "*";
    }
    return 0;
 
