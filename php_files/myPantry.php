@@ -1,5 +1,5 @@
 <html>
-<body>
+<body style = "background-color: #F7F7F7">
     
     
 </body>   

@@ -1,8 +1,36 @@
 <html>
-<head>
-    <link rel="stylesheet" type="text/css" href="navbar.css">
-</head>
-<body>
+<style>
+    /* Add a black background color to the top navigation */
+.topnav {
+  background-color: #000033;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #9BC4E2;
+  color: white;
+}
+
+/* Add a color to the active/current link */
+.topnav a:active {
+  color: #3f000f;
+  background-color: #4CAF50;
+}
+    
+    
+</style>
+<body style = "background-color: #F7F7F7">
     <div class="topnav">
         <a class="home" href="/index.html">Home</a>
         <a href="/myPantry.php"> My Pantry</a>
@@ -14,6 +42,7 @@
  </body>
  </html>
 <?php
+    //<link rel="stylesheet" type="text/css" href="navbar.css">
     session_start();
     //connect to sql server
     $servername = "localhost";

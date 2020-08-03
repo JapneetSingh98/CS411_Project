@@ -3,101 +3,10 @@
 ?>
 <html>
 <head>
-    <style>
-        .button {
-          border: none;
-          color: white;
-          padding: 16px 32px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 16px;
-          margin: 4px 2px;
-          transition-duration: 0.4s;
-          cursor: pointer;
-        }
-        
-        .button1 {
-          background-color: white; 
-          color: black; 
-          border: 2px solid #AA0114;
-        }
-        
-        .button1:hover {
-          background-color: #AA0114;
-          color: white;
-        }
-        
-        .button2 {
-          background-color: white; 
-          color: black; 
-          border: 2px solid #008CBA;
-        }
-        
-        .button2:hover {
-          background-color: #008CBA;
-          color: white;
-        }
-        
-           
-        /* toggle in label designing */ 
-        .toggle { 
-            position : relative ; 
-            display : inline-block; 
-            width : 100px; 
-            height : 52px; 
-            background-color: red; 
-            border-radius: 30px; 
-            border: 2px solid gray; 
-        } 
-                
-        /* After slide changes */ 
-        .toggle:after { 
-            content: ''; 
-            position: absolute; 
-            width: 50px; 
-            height: 50px; 
-            border-radius: 50%; 
-            background-color: gray; 
-            top: 1px;  
-            left: 1px; 
-            transition:  all 0.5s; 
-        } 
-                
-        /* Toggle text */ 
-        p { 
-            font-family: Arial, Helvetica, sans-serif; 
-            font-weight: bold; 
-        } 
-                
-        /* Checkbox cheked effect */ 
-        .checkbox:checked + .toggle::after { 
-            left : 49px;  
-        } 
-                
-        /* Checkbox cheked toggle label bg color */ 
-        .checkbox:checked + .toggle { 
-            background-color: white; 
-        } 
-                
-        /* Checkbox vanished */ 
-        .checkbox {  
-            display : none; 
-        } 
-    </style>
 </head>
-<body>
-    <h2> Due to limitations, please write the Recipe ID in the input box before selecting Make, Favorite, of Un-favorite</h2>
+<body style = "background-color: #F7F7F7">
+    <h2> Please write the Recipe ID in the input box before selecting Make, Favorite, of Un-favorite</h2>
     <form action="" method="post">
-        <!--<input type="checkbox" id="switch"
-                    class="checkbox" /> 
-        <label for="switch" class="toggle"> 
-            <center>
-                <p>    Favorite     </p> 
-            </center>
-        </label> 
-        <!--<input class="switch button1" name="Favorite" value="Favorite"/> -->
-        <!--<input class="button button2" name="Make" value="Make"/>-->
         <label for="RecipeID">RecipeID:</label>
         <input type="text" id="RecipeID" name="RecipeID"><br><br>
         <input type="Submit" name = "Make" value="Make"><br><br>
@@ -107,19 +16,19 @@
  </body>
  </html>
  <?php
-    session_start();
     $recipeID = $_POST['Details'];
     $sql = "SELECT ID FROM currentUser";
     $res = mysqli_query($conn, $sql);
     while($row = mysqli_fetch_array($res)) $userID = $row['ID'];
  
- if (isset($_POST['Details'])){
+ if (isset($_POST['Details']) || isset($_POST['Make']) || isset($_POST['Favorite']) || isset($_POST['Un-favorite'])){
         //recipe table
+        if (isset($_POST['Make']) || isset($_POST['Favorite']) || isset($_POST['Un-favorite'])) $recipeID = $_POST['RecipeID'];
         $sql = "SELECT Recipe.*, GROUP_CONCAT(DISTINCT(MealType.Type) SEPARATOR \", \") AS Type, GROUP_CONCAT( DISTINCT(DietaryRestrictions.Restriction) SEPARATOR \", \") AS Diet FROM Recipe JOIN MealType ON Recipe.ID=MealType.ID JOIN DietaryRestrictions ON Recipe.ID=DietaryRestrictions.ID WHERE Recipe.ID = '$recipeID'";
         $rec_res = mysqli_query($conn, $sql);
         echo "<table border='1'>
-        <tr>
-        <th>ID</th>
+        <tr style='background-color:#C2E0F9'>
+        <th>ID</th> 
         <th>Name</th>
         <th>Instructions</th>
         <th>Prep Time</th>
@@ -131,7 +40,7 @@
         while($row = mysqli_fetch_array($rec_res))
         {
             echo "<tr>";
-            echo "<td>" . $row['ID'] . "</td>";
+            echo "<td>". $row['ID'] . "</td>";
             echo "<td>" . $row['Name'] . "</td>";
             echo "<td>" . $row['Instructions'] . "</td>";
             echo "<td>" . $row['PrepTime'] . "</td>";
@@ -177,6 +86,7 @@
             $myRecipeSQL = "INSERT INTO `MyRecipe`(`UserID`, `RecipeID`, `Name`, `Instructions`, `PrepTime`, `CookTime`, `Servings`) VALUES (\"$userID\", \"$recipeID\", \"$name\", \"$instructions\",  \"$prep\",  \"$cook\",  \"$servings\" )";
             mysqli_query($conn, $myRecipeSQL);
             }
+        //echo "<h1> You have favorited recipe ". $name . "; check your recipes tab to see your favorites. </h1>";
     }
     
     //remove recipe from favorites
@@ -184,6 +94,7 @@
         $recipeID = $_POST['RecipeID'];
         $myRecipeSQL = "DELETE FROM `MyRecipe` WHERE `UserID` = \"$userID\" AND `RecipeID` = \"$recipeID\"";
         mysqli_query($conn, $myRecipeSQL);
+        //echo "<h1> You have un-favorited this recipe; check your recipes tab to see your favorites. </h1>";
     }
     
     //update pantry items
@@ -193,6 +104,7 @@
         $ingredients = mysqli_query($conn, $Isql);
         $Psql = "SELECT Name, Quantity, Type FROM `Pantry` WHERE UserID = '$userID'";
         $pantry = mysqli_query($conn, $Psql);
+        
             
         while($Prow = mysqli_fetch_array($pantry))
         {

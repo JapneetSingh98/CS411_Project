@@ -18,7 +18,6 @@
             echo "<h1>Welcome to PantryTM! Use the navigation bar to naviagte to My Pantry and update your pantry items.</h1>";
         };
     } else if(isset($_REQUEST['login'])){
-        echo "hello";
         $sql = "SELECT * FROM Users WHERE UserID = '$userID' AND Password = '$password'";
         $res = mysqli_query($conn, $sql);
         if (mysqli_num_rows($res)==0) echo("Incorrect username or password, please click on Home and try again");

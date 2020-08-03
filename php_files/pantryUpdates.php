@@ -3,6 +3,7 @@
     include("connector.php");
 ?>
 <html>
+<body style = "background-color: #F7F7F7">
 <head>
    <h1>
        Here you can add items to your pantry, delete items from pantry, or update already existing items.<br>
@@ -25,8 +26,8 @@
       <input type="Submit" name="Delete" value="Delete Item"><br><br>
       <input type="Submit" name="Update" value="Update Item"><br><br>
     </form>
-</html>
 </body>
+</html>
 <?php
     session_start();
     $item = $_POST["item"];
