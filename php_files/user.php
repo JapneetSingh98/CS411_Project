@@ -9,7 +9,7 @@
     if(isset($_REQUEST['signUp'])){
         $sql = "INSERT INTO `Users` (`UserId`, `Password`) VALUES('$userID', '$password');";
         mysqli_query($conn, $sql);
-        if (mysqli_error($conn)) echo("UserID is already taken");
+        if (mysqli_error($conn)) echo "<h1>UserID is already taken </h1>";
         else {
             $sql0 = "DELETE FROM currentUser";
             mysqli_query($conn, $sql0);
@@ -20,7 +20,7 @@
     } else if(isset($_REQUEST['login'])){
         $sql = "SELECT * FROM Users WHERE UserID = '$userID' AND Password = '$password'";
         $res = mysqli_query($conn, $sql);
-        if (mysqli_num_rows($res)==0) echo("Incorrect username or password, please click on Home and try again");
+        if (mysqli_num_rows($res)==0) echo "<h1> Incorrect username or password, please click on Home and try again </h1>";
         else {
             $sql0 = "DELETE FROM currentUser";
             mysqli_query($conn, $sql0);

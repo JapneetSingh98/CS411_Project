@@ -20,7 +20,7 @@
       <input type="text" id="Quantity" name="Quantity"><br><br>
       <label for="Type">Type of Measurement:</label>
       <input type="text" id="Type" name="Type"><br><br>
-      <label for="Expiration">Expiration Date (YYY-MM-DD):</label>
+      <label for="Expiration">Expiration Date (YYYY-MM-DD):</label>
       <input type="text" id="Expiration" name="Expiration"><br><br>
       <input type="Submit" name="Add" value="Add Item"><br><br>
       <input type="Submit" name="Delete" value="Delete Item"><br><br>

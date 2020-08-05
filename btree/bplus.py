@@ -1,7 +1,7 @@
-"""Simple implementation of a B+ tree, a self-balancing tree data structure that (1) maintains sort
-data order and (2) allows insertions and access in logarithmic time.
+"""B+ Tree implementation with insert function and search retrieval. 
+Source code:https://github.com/pschafhalter/python-b-plus-tree
+Source code:https://www.programiz.com/dsa/b-plus-tree
 """
-
 
 
 
@@ -9,11 +9,8 @@ import csv
 import sys
 
 class Node(object):
-    """Base node object.
-    Each node stores keys and values. Keys are not unique to each value, and as such values are
-    stored as a list under each key.
-    Attributes:
-        order (int): The maximum number of keys each node can hold.
+    """This is the base node object that stores keys and values. Since keys are not unique for each value, so that key will contain a list of values.
+    Attributes:the max number of slots a node can have is order
     """
     def __init__(self, order):
         """Child nodes can be converted into parent nodes by setting self.leaf = False. Parent nodes
@@ -25,27 +22,26 @@ class Node(object):
         self.next = None
 
     def add(self, key, value):
-        """Adds a key-value pair to the node."""
-        # If the node is empty, simply insert the key-value pair.
+        """Adds a key value pair to the node."""
+        #If empty node just add the key and the value
         if not self.keys:
             self.keys.append(key)
             self.values.append([value])
             return None
 
         for i, item in enumerate(self.keys):
-            # If new key matches existing key, add to list of values.
+            # If key match prev key, make val list.
             if key == item:
                 self.values[i].append(value)
                 break
 
-            # If new key is smaller than existing key, insert new key to the left of existing key.
+            # smaller means left insertion else insert to right.
             elif key < item:
                 self.keys = self.keys[:i] + [key] + self.keys[i:]
                 self.values = self.values[:i] + [[value]] + self.values[i:]
                 break
 
-            # If new key is larger than all existing keys, insert new key to the right of all
-            # existing keys.
+            # right insertion
             elif i + 1 == len(self.keys):
                 self.keys.append(key)
                 self.values.append([value])
@@ -54,48 +50,42 @@ class Node(object):
         """Splits the node into two and stores them as child nodes."""
         left = Node(self.order)
         right = Node(self.order)
-        mid = self.order // 2
+        middle = self.order // 2
 
-        right.keys = self.keys[mid:]
-        right.values = self.values[mid:]
+        right.keys = self.keys[middle:]
+        right.values = self.values[middle:]
         right.next = left.next
 
-        left.keys = self.keys[:mid]
-        left.values = self.values[:mid]
+        left.keys = self.keys[:middle]
+        left.values = self.values[:middle]
         left.next = right
-
-        # When the node is split, set the parent key to the left-most key of the left child node.
+        
         self.keys = [left.keys[0]]
         self.values = [left, right]
         self.leaf = False
 
     def is_full(self):
-        """Returns True if the node is full."""
+        """Returns True if full."""
         return len(self.keys) == self.order
 
     def show(self, counter=0):
         """Prints the keys at each level."""
         print(counter, str(self.keys))
 
-        # Recursively print the key of child nodes (if these exist).
         if not self.leaf:
             for item in self.values:
                 item.show(counter + 1)
 
 class BPlusTree(object):
-    """B+ tree object, consisting of nodes.
-    Nodes will automatically be split into two once it is full. When a split occurs, a key will
-    'float' upwards and be inserted into the parent node to act as a pivot.
-    Attributes:
-        order (int): The maximum number of keys each node can hold.
+    """B+ tree object, consists of nodes. Contains functions like find, merge, and search
+    Attribute: order
     """
     def __init__(self, order=4):
         self.root = Node(order)
         # self.leaves = []
 
     def _find(self, node, term):
-        """ For a given node and key, returns the index where the key should be inserted and the
-        list of values at that index."""
+        """ Based on node and term, returns value"""
         for i, key in enumerate(node.keys):
             if term < key:
                 return node.values[i], i
@@ -103,8 +93,7 @@ class BPlusTree(object):
         return node.values[i + 1], i + 1
 
     def _merge(self, parent, child, index):
-        """For a parent and child node, extract a pivot from the child to be inserted into the keys
-        of the parent. Insert the values from the child into the values of the parent.
+        """Extract pivot from node to merge, pop value of parent.
         """
         parent.values.pop(index)
         pivot = child.keys[0]
@@ -121,30 +110,28 @@ class BPlusTree(object):
                 break
 
     def insert(self, key, value):
-        """Inserts a key-value pair after traversing to a leaf node. If the leaf node is full, split
-        the leaf node into two.
+        """Inserts a key and value pair after traversing
         """
         parent = None
         child = self.root
 
-        # Traverse tree until leaf node is reached.
+        # Traverse tree until leaf node is reached. 
         while not child.leaf:
             parent = child
             child, index = self._find(child, key)
 
         child.add(key, value)
         # self.leaves.append(child)
-        # If the leaf node is full, split the leaf node into two.
+        # If the leaf is full, split.
         if child.is_full():
             child.split()
 
-            # Once a leaf node is split, it consists of a internal node and two leaf nodes. These
-            # need to be re-inserted back into the tree.
+            # Once a leaf node is split, it must be added into tree again.
             if parent and not parent.is_full():
                 self._merge(parent, child, index)
 
     def retrieve(self, term):
-        """Returns a value for a given key, and None if the key does not exist."""
+        """Returns a value for a provided key"""
         child = self.root
         while not child.leaf:
             child, index = self._find(child, term)
@@ -169,17 +156,15 @@ class BPlusTree(object):
         return newdict
 
     def show(self):
-        """Prints the keys at each level."""
+        """Prints keys at all levels"""
         self.root.show()
 
-def demo_node():
-    #print('Initializing node...')
+def runnode():
     node = Node(order=4)
 
 
 
-def demo_bplustree(term):
-    #print('Initializing B+ tree...')
+def runbplustree(term):
     bplustree = BPlusTree(order=4)
     dict_recipes = {}
 
@@ -208,10 +193,10 @@ def demo_bplustree(term):
 if __name__ == '__main__':
     #main(sys.argv1)
     searchTerm = sys.argv[1]
-    demo_node()
+    runnode()
     #print('\n')
     #searchTerm = input()
-    result = demo_bplustree(searchTerm)
+    result = runbplustree(searchTerm)
     counter = 0
     arr = ""
     for key in result:

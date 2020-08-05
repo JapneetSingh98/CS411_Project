@@ -1,12 +1,17 @@
 <html>
-<body style = "background-color: #F7F7F7">
-    
-    
+<style> 
+
+{
+  background-color: #F7F7F7;
+} </style>
+
+
+<body>
 </body>   
 </html>
 
 <?php
-    include "connector.php";
+    include_once "connector.php";
     $sql = "SELECT ID FROM currentUser";
     $res = mysqli_query($conn, $sql);
     while($row = mysqli_fetch_array($res)) $userID = $row['ID'];
