@@ -37,14 +37,14 @@ BPlusTreeNode * init() {
     np->leaf        = true;
     np->leafData    = new Recipe *[bVal];
     np->n           = 0;
-    
+
     for (int i = 0; i < bVal; i++) {
         np->child_ptr[i] = NULL;
         np->leafData[i] = NULL;
     }
     np->child_ptr[bVal] = NULL;
     np->nextLeaf = NULL;
-    
+
     return np;
 }
 
@@ -76,7 +76,7 @@ void traverse(BPlusTreeNode *p) {
             traverse(p->child_ptr[i]);
         }
         cout << " " << p->data[i].name;  // printing name
-    } 
+    }
     if (p->leaf == false) {
         traverse(p->child_ptr[i]);
     }
@@ -123,7 +123,7 @@ Recipe split_child(BPlusTreeNode *x, int i) {
             y->n--;
         }
         x->child_ptr[i + 1] = y;
-        x->child_ptr[i + 1] = np3; 
+        x->child_ptr[i + 1] = np3;
     }
     return mid;
 }
@@ -164,8 +164,8 @@ void insertNew(BPlusTreeNode *cur, Recipe a) {
         split(cur, a)
     }
 }
-    
-    
+
+
     int i;
     Recipe temp;
     x = root;
@@ -228,7 +228,7 @@ int main() {
         cin>>r.id;
         cout<<"enter the recipe name\n";
         cin>>r.name;
-    
+
         insert(r);
     }
     cout<<"traversal of constructed tree\n";
